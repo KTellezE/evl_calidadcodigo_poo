@@ -34,7 +34,7 @@ export class BookController {
   addBook= async (req: Request, res: Response) => {
     try {
       const newBook =req.body
-      const createdBook = await this.bookService.PostBook(newBook);      
+      const createdBook = await this.bookService.postBook(newBook);      
       res.status(200).json(createdBook);       
     } catch (error) {
       res.status(500).json({ error: "Error fetching books" });
