@@ -41,6 +41,24 @@ export class BookController {
     }
   };
 
+  update= async (req: Request, res: Response) => {
+    try {
+      const bookId = req.params.id; 
+      const updatedData = req.body; 
+
+      const updatedBook = await this.bookService.updateBook(Number(bookId), updatedData);
+
+      if (updatedBook) {
+        res.status(200).json(updatedBook); 
+      } else {
+        res.status(404).json({ message: "Book not found" }); 
+      }
+    } catch (error) {
+      res.status(500).json({ error: "Error updating book" }); 
+    }
+
+  }; 
+
   deleteBook= async (req: Request, res: Response) => {
     try {
       const idbook = req.params.id
@@ -51,6 +69,7 @@ export class BookController {
     }
   };
 
+  
 
   
 }
