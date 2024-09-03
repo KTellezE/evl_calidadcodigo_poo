@@ -7,7 +7,13 @@ export class BookService {
     ];
   }
 
-  async getBookById(id: Number): Promise<Book | undefined >{
+  async getBook(id: Number): Promise<Book | undefined >{
+    const books = await this.getAllBooks();
+    const book = books.find(b => b.id === id);
+    return book;
+  }
+
+  async getBook1(id: Number): Promise<Book | undefined >{
     const books = await this.getAllBooks();
     const book = books.find(b => b.id === id);
     return book;
