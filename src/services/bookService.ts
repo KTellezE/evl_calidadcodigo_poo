@@ -7,9 +7,10 @@ export class BookService {
     ];
   }
 
-  async getBookById(): Promise<Book>{
-
-    return new Book(1,"demo","demo","demo","demo");
+  async getBookById(id: Number): Promise<Book | undefined >{
+    const books = await this.getAllBooks();
+    const book = books.find(b => b.id === id);
+    return book;
   }
 
   
