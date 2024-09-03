@@ -57,7 +57,29 @@ export class BookService {
     } finally {
       client.release();
     }
-  
+  }
+
+  async updateBook(id: number, book:Partial<Book>): Promise<Book> {
+    const client = await pool.connect();
+    try {
+      const book = await this.getBook(id);
+      const updateQuery = `
+      UPDATE books
+      SET title = ${book.title}, author = ${book.author}, year = ${book.year}, editorial = ${book.editorial}
+      WHERE id = ${id};`;
+      const updateResult = await client.query(updateQuery);
+      return new Book(
+        id,
+        book.title,
+        book.author,
+        book.year,
+        book.editorial
+      );
+    } catch (err) {
+      throw new Error('Failed to update the book');
+    } finally {
+      client.release();
+    }
   }
   
 }
